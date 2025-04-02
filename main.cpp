@@ -153,13 +153,18 @@ public:
     }
 
     // Triangle inequality check
-    if (side_a + side_b <= side_c || side_b + side_c <= side_a ||
-      side_c + side_a <= side_b) {
-      throw std::runtime_error(
-        "Error: Invalid Inputs. Sum of two side is can not be less than "
-        "the "
-        "third side");
+    // Triangle inequality check
+    try {
+      if (side_a + side_b <= side_c || side_b + side_c <= side_a ||
+        side_c + side_a <= side_b) {
+        throw std::runtime_error(
+          "Error: Invalid Inputs. Sum of two sides cannot be less than the third side");
+      }
     }
+    catch (const std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
+    }
+
   }
 
   void printResult() const override {
@@ -195,7 +200,6 @@ public:
       }
       catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
-        // break;
       }
     }
     if (side_length < 0) {
@@ -210,7 +214,7 @@ public:
   }
 
 private:
-  double side_length;
+  double side_length = 0;
   double calculateArea() const override { return side_length * side_length; }
 
   double calculatePerimeter() const override { return 4 * side_length; }
@@ -254,8 +258,7 @@ static void SelectShape() {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     throw std::runtime_error(
-      "Error: Invalid Input. Please enter a numeric value not less than "
-      "zero");
+      "Error: Invalid Input. Please enter a numeric value between 1 and 4 ");
   }
   else {
     processSelectionProcess(choice);
