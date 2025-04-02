@@ -20,7 +20,6 @@ public:
       }
       catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
-        // break;
       }
     }
     if (side_length < 0) {
@@ -35,7 +34,7 @@ public:
   }
 
 private:
-  double side_length;
+  double side_length = 0;
   double calculateArea() const override { return side_length * side_length; }
 
   double calculatePerimeter() const override { return 4 * side_length; }
